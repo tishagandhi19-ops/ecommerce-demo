@@ -8,7 +8,7 @@ async function getAllProducts(req,res) {//?
         products :products
     })
 }
-// jo ne aa add to cart ma karyu j 6 user nu cart fine sodh 
+
 async function addToCart ( req , res ){
 //get user id
     const userId = req.user.id
