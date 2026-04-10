@@ -108,7 +108,7 @@ async function removeCartProduct(req,res){
 }
 
 async function editcart(req,res){
-    const id = req.params.id;
+    const id = req.params.id;//yaar barbar 6e patch method 6e edit karvnu 6e to jo sambhad user  pan aema kevu thay 6e first time karye ne edit to thay jay pan 1 var ae product ne patch thi edit karyu pachi fari edit nay tahtu pan mane out method j nay avdti
     const {product,qauntity} = req.body;
 
     const cart = await cartModel.findById(id);
@@ -120,10 +120,11 @@ async function editcart(req,res){
         return res.status(409).json({message:"you not access to edit cart"})
     }
 
-    cart.items = cart.items.map((item)=> {
-        if(item.product.toString() === product.toString())
-            item.qauntity = qauntity
-    } )
+     cart.items.forEach((item) => {
+        if (item.product.toString() === product.toString()) {
+            item.qauntity = qauntity;
+        }
+    });
 
     cart.totalCartAmount = cart.items.reduce(
     (total,item) => total + item.qauntity * item.price, 0 )
@@ -131,5 +132,6 @@ async function editcart(req,res){
     return res.status(409).json({message :"edit sucessfully",cart});
 
 }
+
 
 module.exports = {getAllProducts,addToCart,getCart,removeCartProduct,editcart}
